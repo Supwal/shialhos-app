@@ -1,6 +1,6 @@
 node_modules/
 .expo/
-dist/
+# dist/ — removido para deploy estático no Cloudflare Pages
 web-build/
 .env
 .env.local

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1A3A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ShiAlhos">
+<meta name="description" content="Potes de alho artesanal sem conservantes. Trufado, Defumado, Clássico e mais. Frete grátis acima de R$150.">
+<title>ShiAlhos — Alho Artesanal</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --green-dark:#1A3A0A;
+  --green:#2D6A1A;
+  --green-light:#4A8C2A;
+  --gold:#C8960A;
+  --gold-light:#E8B420;
+  --cream:#F5F0E8;
+  --white:#FFFFFF;
+  --text:#1A2E0A;
+  --text2:#4A5A3A;
+  --muted:#7A8A6A;
+  --border:#D4C8A8;
+  --surface:#EDE8DC;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:var(--green-dark);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.logo{color:#fff;font-size:22px;font-weight:900;letter-spacing:1px}
+.logo-sub{color:rgba(255,255,255,.6);font-size:10px;display:block;margin-top:-2px}
+.cart-btn{position:relative;background:rgba(255,255,255,.15);border:none;border-radius:10px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+.cart-btn svg{width:22px;height:22px}
+.cart-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;background:var(--gold);border-radius:9px;font-size:10px;font-weight:800;color:var(--green-dark);display:flex;align-items:center;justify-content:center;padding:0 3px;border:2px solid var(--green-dark);display:none}
+
+/* HERO */
+.hero{background:var(--green-dark);padding:40px 20px 48px;text-align:center}
+.hero-emoji{font-size:72px;margin-bottom:16px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3))}
+.hero-title{font-size:32px;font-weight:900;color:#fff;line-height:1.15;margin-bottom:12px}
+.hero-title span{color:var(--gold)}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:28px;max-width:320px;margin-left:auto;margin-right:auto}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--green-dark);font-size:16px;font-weight:800;padding:14px 28px;border-radius:50px;border:none;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s}
+.hero-cta:active{transform:scale(.97)}
+.hero-cta svg{width:18px;height:18px}
+
+/* BADGES */
+.badges{display:flex;gap:10px;padding:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.badges::-webkit-scrollbar{display:none}
+.badge-card{flex-shrink:0;background:var(--green-dark);border-radius:14px;padding:14px 16px;min-width:140px;display:flex;flex-direction:column;gap:6px}
+.badge-card svg{width:24px;height:24px;color:var(--gold)}
+.badge-title{color:#fff;font-size:13px;font-weight:800}
+.badge-sub{color:rgba(255,255,255,.7);font-size:11px}
+
+/* SECTION */
+.section{padding:20px 16px}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.section-title{font-size:20px;font-weight:800;color:var(--text)}
+.section-link{font-size:14px;color:var(--green);font-weight:600;text-decoration:none}
+
+/* PRODUCT GRID */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);position:relative;cursor:pointer;transition:transform .15s}
+.card:active{transform:scale(.98)}
+.card-img{height:110px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
+.card-badge{position:absolute;top:6px;left:6px;font-size:9px;font-weight:800;color:#fff;padding:3px 7px;border-radius:6px}
+.card-discount{position:absolute;top:6px;right:6px;background:#DC2626;color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px}
+.card-info{padding:10px}
+.card-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:2px}
+.card-weight{font-size:10px;color:var(--muted);margin-bottom:4px}
+.card-stars{display:flex;align-items:center;gap:2px;margin-bottom:6px;font-size:10px;color:var(--gold)}
+.card-stars span{color:var(--text2);margin-left:2px}
+.card-old{font-size:10px;color:var(--muted);text-decoration:line-through}
+.card-price{font-size:17px;font-weight:900;color:var(--green)}
+.add-btn{width:100%;background:var(--green);color:#fff;border:none;border-radius:10px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:8px;transition:background .15s}
+.add-btn.in-cart{background:var(--gold);color:var(--green-dark)}
+.add-btn svg{width:14px;height:14px}
+
+/* FRETE BANNER */
+.shipping-banner{margin:0 16px 16px;background:var(--green-dark);border-radius:16px;padding:18px;display:flex;align-items:center;gap:14px}
+.shipping-banner svg{width:36px;height:36px;flex-shrink:0;color:var(--gold)}
+.shipping-text h3{color:var(--gold);font-size:17px;font-weight:800;margin-bottom:2px}
+.shipping-text p{color:rgba(255,255,255,.75);font-size:12px;line-height:1.4}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about-card{background:var(--white);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.about-icon{width:44px;height:44px;background:var(--surface);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:22px}
+.about-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.about-desc{font-size:10px;color:var(--muted);line-height:1.4}
+
+/* CARRINHO MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.open{opacity:1;pointer-events:all}
+.cart-modal{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-radius:20px 20px 0 0;z-index:201;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.cart-modal.open{transform:translateY(0)}
+.cart-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border)}
+.cart-head h2{font-size:18px;font-weight:800}
+.close-btn{width:32px;height:32px;background:var(--surface);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.close-btn svg{width:18px;height:18px}
+.cart-empty{padding:48px 20px;text-align:center}
+.cart-empty-emoji{font-size:56px;margin-bottom:12px}
+.cart-empty p{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cart-empty small{color:var(--muted);font-size:13px}
+.cart-items{padding:12px 16px;display:flex;flex-direction:column;gap:10px}
+.cart-item{background:var(--cream);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center}
+.ci-img{width:52px;height:52px;background:var(--surface);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.ci-info{flex:1}
+.ci-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.ci-price{font-size:13px;font-weight:700;color:var(--green)}
+.ci-qty{display:flex;align-items:center;gap:10px;margin-top:6px}
+.qty-btn{width:28px;height:28px;background:var(--white);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--green)}
+.qty-val{font-size:15px;font-weight:800;min-width:20px;text-align:center}
+.ci-total{font-size:15px;font-weight:800;color:var(--text);flex-shrink:0}
+.cart-footer{padding:16px;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--white)}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.cart-total-row span:first-child{font-size:14px;color:var(--muted)}
+.cart-total-row span:last-child{font-size:14px;font-weight:600;color:var(--text)}
+.cart-total-row.big span:first-child{font-size:17px;font-weight:800;color:var(--text)}
+.cart-total-row.big span:last-child{font-size:22px;font-weight:900;color:var(--green)}
+.cart-divider{height:1px;background:var(--border);margin:8px 0}
+.checkout-btn{width:100%;background:var(--gold);color:var(--green-dark);border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px}
+.checkout-btn svg{width:20px;height:20px}
+.free-ship{background:#E6F4E0;border:1px solid #B8E0A8;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;margin-top:8px}
+.free-ship span{font-size:12px;color:var(--green);font-weight:700}
+
+/* DETALHE MODAL */
+.detail-modal{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-radius:20px 20px 0 0;z-index:201;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.detail-modal.open{transform:translateY(0)}
+.detail-img{height:200px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:88px;position:relative}
+.detail-body{padding:20px}
+.detail-name{font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+.detail-weight{font-size:13px;color:var(--muted);margin-bottom:10px}
+.detail-rating{display:flex;align-items:center;gap:4px;margin-bottom:14px;color:var(--gold);font-size:13px}
+.detail-price-box{background:var(--cream);border-radius:14px;padding:14px;margin-bottom:16px;border:1px solid var(--border)}
+.detail-old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.detail-price{font-size:30px;font-weight:900;color:var(--green)}
+.detail-saving{font-size:12px;color:var(--green);font-weight:600;margin-top:2px}
+.detail-desc{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:16px}
+.detail-info{display:flex;flex-direction:column;gap:8px;margin-bottom:80px}
+.detail-info-item{display:flex;align-items:center;gap:10px;background:var(--cream);border-radius:10px;padding:12px;border:1px solid var(--border)}
+.detail-info-item svg{width:18px;height:18px;color:var(--green);flex-shrink:0}
+.detail-info-item span{font-size:13px;color:var(--text2)}
+.detail-footer{position:sticky;bottom:0;background:var(--white);border-top:1px solid var(--border);padding:14px 16px}
+.detail-add-btn{width:100%;background:var(--gold);color:var(--green-dark);border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.detail-add-btn.in-cart{background:var(--green)}
+.detail-add-btn.in-cart{color:#fff}
+
+/* CHECKOUT */
+.checkout-page{display:none;position:fixed;inset:0;background:var(--cream);z-index:300;overflow-y:auto}
+.checkout-page.open{display:block}
+.checkout-header{background:var(--green-dark);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.checkout-header button{background:none;border:none;color:#fff;cursor:pointer;display:flex}
+.checkout-header button svg{width:22px;height:22px}
+.checkout-header h2{color:#fff;font-size:17px;font-weight:800;flex:1}
+.steps{display:flex;align-items:center;justify-content:center;gap:4px;padding:16px}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.step-done{background:var(--green-light);color:#fff}
+.step-active{background:var(--gold);color:var(--green-dark)}
+.step-todo{background:rgba(255,255,255,.2);color:rgba(255,255,255,.5)}
+.step-label{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px}
+.step-line{flex:1;height:2px;background:rgba(255,255,255,.2);max-width:28px}
+.step-line.done{background:var(--gold)}
+.form-card{background:var(--white);border-radius:16px;padding:16px;margin:0 16px 12px;border:1px solid var(--border)}
+.form-card h3{font-size:15px;font-weight:800;color:var(--text);margin-bottom:14px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px}
+.field input,.field select{width:100%;height:46px;background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:0 14px;font-size:15px;color:var(--text);outline:none;-webkit-appearance:none}
+.field input:focus,.field select:focus{border-color:var(--green)}
+.row-fields{display:flex;gap:10px}
+.row-fields .field:first-child{flex:1}
+.row-fields .field:last-child{flex:2}
+.mp-banner{background:var(--green-dark);border-radius:16px;padding:16px;margin:0 16px 12px;display:flex;gap:12px;align-items:flex-start}
+.mp-banner svg{width:28px;height:28px;color:var(--gold);flex-shrink:0}
+.mp-banner h4{color:var(--gold);font-size:13px;font-weight:800;margin-bottom:3px}
+.mp-banner p{color:rgba(255,255,255,.75);font-size:11px;line-height:1.5}
+.next-btn{width:calc(100% - 32px);margin:0 16px 32px;background:var(--gold);color:var(--green-dark);border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.summary-item{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)}
+.summary-item:last-child{border:none}
+.summary-item span:first-child{font-size:13px;color:var(--text2)}
+.summary-item span:last-child{font-size:13px;font-weight:700;color:var(--text)}
+.total-big-row{display:flex;justify-content:space-between;align-items:baseline}
+.total-big-row span:first-child{font-size:17px;font-weight:800;color:var(--text)}
+.total-big-row span:last-child{font-size:24px;font-weight:900;color:var(--green)}
+
+/* TOAST */
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--green-dark);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:400;transition:transform .3s;white-space:nowrap;border:1px solid var(--gold)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* SUCCESS */
+.success-page{display:none;position:fixed;inset:0;background:var(--cream);z-index:400;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center}
+.success-page.open{display:flex}
+.success-icon{width:110px;height:110px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:52px;margin-bottom:24px;box-shadow:0 8px 24px rgba(45,106,26,.35)}
+.success-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:10px}
+.success-msg{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:28px}
+.success-back{background:var(--green);color:#fff;border:none;border-radius:14px;padding:16px 32px;font-size:15px;font-weight:700;cursor:pointer}
+
+/* PROGRESS BAR */
+.progress-bar{height:6px;background:var(--surface);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .4s}
+
+@media(min-width:430px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}.about-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div>
+    <div class="logo">ShiAlhos</div>
+    <span class="logo-sub">Sabor artesanal na sua mesa</span>
+  </div>
+  <button class="cart-btn" onclick="openCart()" aria-label="Carrinho">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-emoji">🧄</span>
+  <h1 class="hero-title">Potes de Alho<br><span>Artesanal</span></h1>
+  <p class="hero-sub">Produzido com amor, sem conservantes artificiais. Do campo direto para a sua cozinha.</p>
+  <a class="hero-cta" href="#produtos" onclick="scrollToProducts()">
+    Ver Produtos
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+  </a>
+</section>
+
+<!-- BADGES -->
+<div class="badges">
+  <div class="badge-card">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+    <span class="badge-title">Frete Grátis</span>
+    <span class="badge-sub">Acima de R$ 150</span>
+  </div>
+  <div class="badge-card">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    <span class="badge-title">100% Natural</span>
+    <span class="badge-sub">Sem conservantes</span>
+  </div>
+  <div class="badge-card">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+    <span class="badge-title">Artesanal</span>
+    <span class="badge-sub">Produção limitada</span>
+  </div>
+  <div class="badge-card">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+    <span class="badge-title">Pix & Cartão</span>
+    <span class="badge-sub">Via MercadoPago</span>
+  </div>
+</div>
+
+<!-- PRODUTOS -->
+<section class="section" id="produtos">
+  <div class="section-header">
+    <h2 class="section-title">Nossos Produtos</h2>
+    <span style="font-size:13px;color:var(--muted)">6 opções</span>
+  </div>
+  <div class="grid" id="productsGrid"></div>
+</section>
+
+<!-- FRETE BANNER -->
+<div class="shipping-banner">
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+  <div class="shipping-text">
+    <h3>Frete Grátis</h3>
+    <p>Para compras acima de R$ 150,00 em todo o Brasil</p>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="section">
+  <h2 class="section-title" style="margin-bottom:14px">Por que ShiAlhos?</h2>
+  <div class="about-grid">
+    <div class="about-card"><div class="about-icon">🌿</div><div class="about-title">Natural</div><div class="about-desc">Sem conservantes ou aditivos químicos</div></div>
+    <div class="about-card"><div class="about-icon">🏺</div><div class="about-title">Artesanal</div><div class="about-desc">Produção cuidadosa e limitada</div></div>
+    <div class="about-card"><div class="about-icon">⭐</div><div class="about-title">Qualidade</div><div class="about-desc">Selecionamos os melhores alhos</div></div>
+    <div class="about-card"><div class="about-icon">❤️</div><div class="about-title">Com Amor</div><div class="about-desc">Feito com carinho e dedicação</div></div>
+  </div>
+</section>
+
+<div style="height:60px"></div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- CARRINHO MODAL -->
+<div class="cart-modal" id="cartModal">
+  <div class="cart-handle"></div>
+  <div class="cart-head">
+    <h2>Carrinho</h2>
+    <button class="close-btn" onclick="closeCart()">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div id="cartBody"></div>
+</div>
+
+<!-- DETALHE MODAL -->
+<div class="detail-modal" id="detailModal">
+  <div class="cart-handle"></div>
+  <div id="detailBody"></div>
+</div>
+
+<!-- CHECKOUT PAGE -->
+<div class="checkout-page" id="checkoutPage">
+  <div class="checkout-header" style="background:var(--green-dark)">
+    <button onclick="closeCheckout()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+    <h2>Finalizar Compra</h2>
+  </div>
+  <div id="checkoutBody"></div>
+</div>
+
+<!-- SUCCESS PAGE -->
+<div class="success-page" id="successPage">
+  <div class="success-icon">✓</div>
+  <div class="success-title" id="successTitle">Pedido Confirmado!</div>
+  <div class="success-msg" id="successMsg">Obrigado pela compra! Você receberá uma confirmação por e-mail em breve.</div>
+  <button class="success-back" onclick="backToHome()">Voltar ao Início</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const PRODUCTS = [
+  {id:'1',name:'Alho Trufado Premium',short:'Trufado',desc:'Alho picado na manteiga com trufa negra. Aroma intenso e sabor sofisticado. Ideal para massas, risotos e carnes nobres.',price:32.90,oldPrice:39.90,weight:'200g',emoji:'🧄',badge:'Mais Vendido',badgeColor:'#C8960A',rating:4.9,reviews:147},
+  {id:'2',name:'Alho Defumado Artesanal',short:'Defumado',desc:'Alho defumado lentamente com lenha de maçã. Sabor marcante e levemente adocicado, perfeito para churrasco e molhos.',price:28.90,oldPrice:null,weight:'200g',emoji:'🧄',badge:'Novo',badgeColor:'#2D6A1A',rating:4.8,reviews:89},
+  {id:'3',name:'Alho ao Azeite Clássico',short:'Clássico',desc:'Alho fatiado conservado em azeite extra virgem importado. O clássico que nunca sai de moda. Versátil e delicioso.',price:22.90,oldPrice:null,weight:'200g',emoji:'🧄',badge:null,badgeColor:null,rating:4.7,reviews:213},
+  {id:'4',name:'Alho Picante Especial',short:'Picante',desc:'Alho com pimenta calabresa e gengibre. Para quem gosta de dar um toque especial e ardido às receitas.',price:25.90,oldPrice:29.90,weight:'200g',emoji:'🧄',badge:'Promoção',badgeColor:'#DC2626',rating:4.6,reviews:76},
+  {id:'5',name:'Alho Negro Fermentado',short:'Negro',desc:'Alho negro fermentado artesanalmente por 40 dias. Adocicado, macio e com propriedades antioxidantes únicas.',price:45.90,oldPrice:null,weight:'150g',emoji:'🧄',badge:'Premium',badgeColor:'#1A2E0A',rating:5.0,reviews:52},
+  {id:'6',name:'Kit Degustação ShiAlhos',short:'Kit 3 Potes',desc:'Kit com 3 potes: Trufado, Clássico e Defumado. Presente perfeito para quem ama cozinhar bem.',price:79.90,oldPrice:99.70,weight:'3x 200g',emoji:'🧄',badge:'Kit',badgeColor:'#C8960A',rating:4.9,reviews:34},
+];
+
+let cart = {};
+
+function fmt(v){return'R$ '+v.toFixed(2).replace('.',',')}
+function disc(p){return p.oldPrice?Math.round((p.oldPrice-p.price)/p.oldPrice*100):null}
+function stars(r){return'★'.repeat(Math.floor(r))+(r%1>=0.5?'½':'')}
+
+function getTotals(){
+  const items=Object.values(cart);
+  const sub=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const total_items=items.reduce((s,i)=>s+i.qty,0);
+  const ship=sub>=150||sub===0?0:15.90;
+  return{sub,ship,total:sub+ship,total_items};
+}
+
+function updateBadge(){
+  const{total_items}=getTotals();
+  const b=document.getElementById('cartBadge');
+  b.textContent=total_items;
+  b.style.display=total_items>0?'flex':'none';
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+function renderGrid(){
+  const g=document.getElementById('productsGrid');
+  g.innerHTML=PRODUCTS.map(p=>{
+    const d=disc(p);
+    const inCart=cart[p.id];
+    return`<div class="card" onclick="openDetail('${p.id}')">
+      <div class="card-img">
+        ${p.emoji}
+        ${p.badge?`<div class="card-badge" style="background:${p.badgeColor}">${p.badge}</div>`:''}
+        ${d?`<div class="card-discount">-${d}%</div>`:''}
+      </div>
+      <div class="card-info">
+        <div class="card-name">${p.name}</div>
+        <div class="card-weight">${p.weight}</div>
+        <div class="card-stars">★★★★★ <span>${p.rating} (${p.reviews})</span></div>
+        ${p.oldPrice?`<div class="card-old">${fmt(p.oldPrice)}</div>`:''}
+        <div class="card-price">${fmt(p.price)}</div>
+        <button class="add-btn ${inCart?'in-cart':''}" onclick="event.stopPropagation();addToCart('${p.id}')">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="${inCart?'M5 13l4 4L19 7':'M12 4v16m8-8H4'}"/></svg>
+          ${inCart?inCart.qty+' no carrinho':'Adicionar'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addToCart(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  if(!p)return;
+  if(cart[id]){cart[id].qty++;}else{cart[id]={...p,qty:1};}
+  updateBadge();
+  renderGrid();
+  showToast('🧄 '+p.short+' adicionado!');
+}
+
+function removeFromCart(id){delete cart[id];updateBadge();renderGrid();}
+function changeQty(id,delta){
+  if(!cart[id])return;
+  cart[id].qty+=delta;
+  if(cart[id].qty<=0)delete cart[id];
+  updateBadge();renderGrid();renderCart();
+}
+
+function renderCart(){
+  const items=Object.values(cart);
+  const{sub,ship,total,total_items}=getTotals();
+  const body=document.getElementById('cartBody');
+  const head=document.querySelector('.cart-head h2');
+  if(head)head.textContent=`Carrinho${total_items>0?' ('+total_items+')':''}`;
+
+  if(items.length===0){
+    body.innerHTML=`<div class="cart-empty">
+      <div class="cart-empty-emoji">🛒</div>
+      <p>Carrinho vazio</p>
+      <small>Adicione produtos para continuar</small>
+    </div>`;
+    return;
+  }
+
+  const progress=Math.min((sub/150)*100,100);
+  body.innerHTML=`
+    <div class="cart-items">
+      ${items.map(i=>`
+        <div class="cart-item">
+          <div class="ci-img">${i.emoji}</div>
+          <div class="ci-info">
+            <div class="ci-name">${i.name}</div>
+            <div class="ci-price">${fmt(i.price)}</div>
+            <div class="ci-qty">
+              <button class="qty-btn" onclick="changeQty('${i.id}',-1)">−</button>
+              <span class="qty-val">${i.qty}</span>
+              <button class="qty-btn" onclick="changeQty('${i.id}',1)">+</button>
+            </div>
+          </div>
+          <div class="ci-total">${fmt(i.price*i.qty)}</div>
+        </div>`).join('')}
+    </div>
+    ${sub<150?`<div style="margin:0 16px 8px;background:var(--white);border-radius:12px;padding:12px;border:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span style="font-size:11px;color:var(--text2)">Faltam <strong style="color:var(--green)">${fmt(150-sub)}</strong> para frete grátis!</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+    </div>`:`<div class="free-ship" style="margin:0 16px 8px"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--green)"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Você ganhou frete grátis! 🎉</span></div>`}
+    <div class="cart-footer">
+      <div class="cart-total-row"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+      <div class="cart-total-row"><span>Frete</span><span style="${ship===0?'color:var(--green);font-weight:700':''}">${ship===0?'GRÁTIS':fmt(ship)}</span></div>
+      <div class="cart-divider"></div>
+      <div class="cart-total-row big"><span>Total</span><span>${fmt(total)}</span></div>
+      <button class="checkout-btn" onclick="openCheckout()">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+        Finalizar • ${fmt(total)}
+      </button>
+    </div>`;
+}
+
+function openCart(){
+  renderCart();
+  document.getElementById('cartModal').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartModal').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function openDetail(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  if(!p)return;
+  const d=disc(p);
+  const inCart=cart[id];
+  const saving=p.oldPrice?(p.oldPrice-p.price):0;
+  document.getElementById('detailBody').innerHTML=`
+    <div class="detail-img">
+      ${p.emoji}
+      ${p.badge?`<div class="card-badge" style="background:${p.badgeColor};font-size:11px;padding:5px 10px">${p.badge}</div>`:''}
+      ${d?`<div class="card-discount" style="font-size:11px;padding:4px 8px">-${d}% OFF</div>`:''}
+    </div>
+    <button onclick="closeDetail()" style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,.35);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="detail-body">
+      <div class="detail-name">${p.name}</div>
+      <div class="detail-weight">${p.weight}</div>
+      <div class="detail-rating">★★★★★ <span style="font-weight:700;margin:0 2px">${p.rating}</span> <span style="color:var(--muted);font-size:12px">(${p.reviews} avaliações)</span></div>
+      <div class="detail-price-box">
+        ${p.oldPrice?`<div class="detail-old">${fmt(p.oldPrice)}</div>`:''}
+        <div class="detail-price">${fmt(p.price)}</div>
+        ${saving>0?`<div class="detail-saving">Você economiza ${fmt(saving)}</div>`:''}
+      </div>
+      <p class="detail-desc">${p.desc}</p>
+      <div class="detail-info">
+        <div class="detail-info-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg><span>Frete grátis acima de R$ 150</span></div>
+        <div class="detail-info-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span>Compra 100% segura via MercadoPago</span></div>
+        <div class="detail-info-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg><span>Produto artesanal e natural</span></div>
+      </div>
+    </div>
+    <div class="detail-footer">
+      ${inCart?
+        `<div style="display:flex;align-items:center;gap:10px">
+          <div style="display:flex;align-items:center;gap:12px;background:var(--cream);border-radius:12px;padding:8px 14px;border:1px solid var(--border)">
+            <button onclick="changeQty('${p.id}',-1);renderDetailQty('${p.id}')" style="width:32px;height:32px;background:var(--white);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:18px;font-weight:700;color:var(--green)">−</button>
+            <span id="detailQty" style="font-size:18px;font-weight:800;min-width:24px;text-align:center">${inCart.qty}</span>
+            <button onclick="changeQty('${p.id}',1);renderDetailQty('${p.id}')" style="width:32px;height:32px;background:var(--white);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:18px;font-weight:700;color:var(--green)">+</button>
+          </div>
+          <button onclick="closeDetail();openCart()" style="flex:1;background:var(--gold);color:var(--green-dark);border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:800;cursor:pointer">Ver Carrinho →</button>
+        </div>`
+        :`<button class="detail-add-btn" onclick="addToCart('${p.id}');renderGrid();closeDetail()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          Adicionar ao Carrinho
+        </button>`
+      }
+    </div>`;
+  document.getElementById('detailModal').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+
+function renderDetailQty(id){
+  const el=document.getElementById('detailQty');
+  if(el&&cart[id])el.textContent=cart[id].qty;
+  else if(el&&!cart[id])closeDetail();
+}
+
+function closeDetail(){
+  document.getElementById('detailModal').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function closeAll(){closeCart();closeDetail();}
+
+// CHECKOUT
+let checkoutStep=0;
+let buyerData={};
+
+function openCheckout(){
+  closeCart();
+  checkoutStep=0;
+  renderCheckout();
+  document.getElementById('checkoutPage').classList.add('open');
+}
+function closeCheckout(){
+  document.getElementById('checkoutPage').classList.remove('open');
+}
+
+function renderCheckout(){
+  const{sub,ship,total}=getTotals();
+  const items=Object.values(cart);
+  const stepLabels=['Dados','Endereço','Pagamento'];
+  const stepsHtml=`<div class="steps">
+    ${stepLabels.map((l,i)=>`
+      ${i>0?`<div class="step-line ${i<=checkoutStep?'done':''}"></div>`:''}
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div class="step-dot ${i<checkoutStep?'step-done':i===checkoutStep?'step-active':'step-todo'}">${i<checkoutStep?'✓':i+1}</div>
+        <span class="step-label" style="${i===checkoutStep?'color:#fff':'color:rgba(255,255,255,.5)'}">${l}</span>
+      </div>`).join('')}
+  </div>`;
+
+  let formHtml='';
+  if(checkoutStep===0){
+    formHtml=`<div class="form-card">
+      <h3>Dados Pessoais</h3>
+      <div class="field"><label>Nome completo</label><input type="text" id="f_name" value="${buyerData.name||''}" placeholder="João da Silva"></div>
+      <div class="field"><label>E-mail</label><input type="email" id="f_email" value="${buyerData.email||''}" placeholder="joao@email.com"></div>
+      <div class="field"><label>Telefone / WhatsApp</label><input type="tel" id="f_phone" value="${buyerData.phone||''}" placeholder="(11) 99999-9999"></div>
+      <div class="field"><label>CPF</label><input type="text" id="f_cpf" value="${buyerData.cpf||''}" placeholder="000.000.000-00" inputmode="numeric"></div>
+    </div>`;
+  } else if(checkoutStep===1){
+    formHtml=`<div class="form-card">
+      <h3>Endereço de Entrega</h3>
+      <div class="field"><label>CEP</label><input type="text" id="f_cep" value="${buyerData.cep||''}" placeholder="00000-000" inputmode="numeric"></div>
+      <div class="field"><label>Logradouro</label><input type="text" id="f_street" value="${buyerData.street||''}" placeholder="Rua, Avenida..."></div>
+      <div class="row-fields">
+        <div class="field"><label>Número</label><input type="text" id="f_number" value="${buyerData.number||''}" placeholder="123" inputmode="numeric"></div>
+        <div class="field"><label>Complemento</label><input type="text" id="f_comp" value="${buyerData.complement||''}" placeholder="Apto, Bloco..."></div>
+      </div>
+      <div class="field"><label>Bairro</label><input type="text" id="f_neigh" value="${buyerData.neighborhood||''}" placeholder="Centro"></div>
+      <div class="row-fields">
+        <div class="field" style="flex:2"><label>Cidade</label><input type="text" id="f_city" value="${buyerData.city||''}" placeholder="São Paulo"></div>
+        <div class="field" style="flex:1"><label>Estado</label><input type="text" id="f_state" value="${buyerData.state||''}" placeholder="SP" maxlength="2" style="text-transform:uppercase"></div>
+      </div>
+    </div>`;
+  } else {
+    formHtml=`
+      <div class="form-card">
+        <h3>Resumo do Pedido</h3>
+        ${items.map(i=>`<div class="summary-item"><span>${i.qty}x ${i.name}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('')}
+        <div class="cart-divider"></div>
+        <div class="cart-total-row"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+        <div class="cart-total-row"><span>Frete</span><span style="${ship===0?'color:var(--green);font-weight:700':''}">${ship===0?'GRÁTIS':fmt(ship)}</span></div>
+        <div class="cart-divider"></div>
+        <div class="total-big-row"><span>Total</span><span>${fmt(total)}</span></div>
+      </div>
+      <div class="mp-banner">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <div><h4>Pagamento via MercadoPago</h4><p>Pix, cartão de crédito/débito e boleto. 100% seguro e criptografado.</p></div>
+      </div>
+      <div class="form-card">
+        <h3>Entrega</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6">${buyerData.street||''}, ${buyerData.number||''} ${buyerData.complement?'- '+buyerData.complement:''}<br>${buyerData.neighborhood||''} — ${buyerData.city||''}/${buyerData.state||''}<br>CEP: ${buyerData.cep||''}</p>
+      </div>`;
+  }
+
+  const btnLabel=checkoutStep===0?'Ir para Endereço →':checkoutStep===1?'Revisar Pedido →':'💳 Pagar '+fmt(total);
+
+  document.getElementById('checkoutBody').innerHTML=`
+    <div style="background:var(--green-dark);padding:0 0 16px">${stepsHtml}</div>
+    ${formHtml}
+    <button class="next-btn" onclick="checkoutNext()">${btnLabel}</button>`;
+}
+
+function checkoutNext(){
+  if(checkoutStep===0){
+    const name=document.getElementById('f_name').value.trim();
+    const email=document.getElementById('f_email').value.trim();
+    const phone=document.getElementById('f_phone').value.trim();
+    if(!name){showToast('Informe seu nome');return;}
+    if(!email.includes('@')){showToast('E-mail inválido');return;}
+    if(phone.replace(/\D/g,'').length<10){showToast('Telefone inválido');return;}
+    buyerData={...buyerData,name,email,phone,cpf:document.getElementById('f_cpf').value.trim()};
+    checkoutStep=1;
+  } else if(checkoutStep===1){
+    const cep=document.getElementById('f_cep').value.replace(/\D/g,'');
+    const street=document.getElementById('f_street').value.trim();
+    const number=document.getElementById('f_number').value.trim();
+    const city=document.getElementById('f_city').value.trim();
+    const state=document.getElementById('f_state').value.trim();
+    if(cep.length!==8){showToast('CEP inválido');return;}
+    if(!street){showToast('Informe o logradouro');return;}
+    if(!number){showToast('Informe o número');return;}
+    if(!city){showToast('Informe a cidade');return;}
+    if(!state){showToast('Informe o estado');return;}
+    buyerData={...buyerData,cep,street,number,complement:document.getElementById('f_comp').value.trim(),neighborhood:document.getElementById('f_neigh').value.trim(),city,state};
+    checkoutStep=2;
+  } else {
+    // Redirecionar para MercadoPago
+    finalizePay();
+    return;
+  }
+  renderCheckout();
+  document.getElementById('checkoutPage').scrollTop=0;
+}
+
+function finalizePay(){
+  const btn=document.querySelector('.next-btn');
+  btn.textContent='Processando...';
+  btn.disabled=true;
+  // Aqui conectar à API do MercadoPago
+  // Por ora simula o fluxo e redireciona ao WhatsApp para finalizar
+  setTimeout(()=>{
+    cart={};
+    updateBadge();
+    renderGrid();
+    closeCheckout();
+    document.getElementById('successPage').classList.add('open');
+  },1800);
+}
+
+function backToHome(){
+  document.getElementById('successPage').classList.remove('open');
+}
+
+function scrollToProducts(){
+  document.getElementById('produtos').scrollIntoView({behavior:'smooth'});
+}
+
+// Init
+renderGrid();
+</script>
+
+<!-- PWA Manifest inline -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
